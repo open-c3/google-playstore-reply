@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import datetime
 import subprocess
 import json
@@ -25,9 +25,13 @@ def reply():
         text = data['text']
         json_data = json.dumps({'reviewId': review_id, 'text': text})
         run_reply_script(json_data, config)
-        return 'Data received and processed'
+        try:
+            run_reply_script(json_data, config)
+            return jsonify({'stat': True})
+        except subprocess.CalledProcessError as e:
+            return jsonify({'stat': False, 'info': f"Error: {e.output.decode()}"})
     else:
-        return 'Invalid JSON data'
+        return jsonify({'stat': False, 'info': 'Invalid JSON data'})
 
 def timed_job(config):
     now = datetime.datetime.now()
