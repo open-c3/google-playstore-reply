@@ -7,4 +7,4 @@ if [ "X$NAME" == "X" ];then
     exit 1
 fi
 
-docker run -it -d --name google-play-reply-$NAME -v ./code:/code -v ./conf/$NAME:/conf python:3.9 /bin/bash
+docker run -it -d --name openc3-google-play-reply-$NAME -v ./code:/code -v ./conf/$NAME:/conf openc3-google-play-reply
