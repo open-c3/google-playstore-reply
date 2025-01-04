@@ -6,3 +6,4 @@ openc3_header:
   appkey: xxx
   appname: foo
 port: 8000
+debug: true
