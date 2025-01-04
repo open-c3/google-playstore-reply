@@ -5,3 +5,4 @@ openc3_url: http://10.10.10.10/api/ci/googleplay/review/record
 openc3_header:
   appkey: xxx
   appname: foo
+port: 8000
