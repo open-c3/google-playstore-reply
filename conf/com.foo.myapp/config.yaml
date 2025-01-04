@@ -6,4 +6,5 @@ openc3_header:
   appkey: xxx
   appname: foo
 port: 8000
+socks5: '10.10.10.10:1080'
 debug: true

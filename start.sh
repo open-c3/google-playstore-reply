@@ -11,6 +11,7 @@ docker stop openc3-google-play-reply-$NAME
 docker rm openc3-google-play-reply-$NAME
 
 PORT=$(cat conf/$NAME/config.yaml |grep ^port:|awk '{print $2}' )
+SOCK=$(cat conf/$NAME/config.yaml|grep ^socks5:|awk '{print $2}'|sed  "s/'//g")
 docker run -it -d \
   --name openc3-google-play-reply-$NAME \
    -v ./code:/code \
@@ -18,4 +19,6 @@ docker run -it -d \
    -v ./config.yaml:/config.yaml \
    -p $PORT:8080 \
    -e app_package_name=$NAME \
+   -e http_proxy=socks5://$SOCK \
+   -e https_proxy=socks5://$SOCK \
    openc3-google-play-reply
