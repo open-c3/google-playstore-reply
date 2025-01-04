@@ -1,0 +1,10 @@
+package_name: bar
+key_file: "key.json"
+dry_run: true
+openc3_url: http://10.10.10.10/api/ci/googleplay/review/record
+openc3_header:
+  appkey: xxx
+  appname: bar
+port: 8001
+socks5: '10.10.10.10:1080'
+debug: true
