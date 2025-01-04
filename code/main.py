@@ -9,6 +9,9 @@ def load_config():
     with open('/conf/config.yaml', 'r') as f:
         config = yaml.safe_load(f)
 
+    with open('/config.yaml', 'r') as f:
+        config.update(yaml.safe_load(f))
+
     # 从环境变量中获取 app_package_name 并添加到 config 字典中
     app_package_name = os.environ.get('app_package_name')
     if not app_package_name:
@@ -69,7 +72,7 @@ def process_json_line(json_line, config):
         'developer_comment': developer_comment,
         'package_name': config['package_name'],  # 添加 package_name
         'app_package_name': config['app_package_name'],
-        'callback': 'http://10.10.10.10:8080'
+        'callback': f"http://{config['ip']}:{config['port']}"
     }
     
     # 输出简化版JSON对象
