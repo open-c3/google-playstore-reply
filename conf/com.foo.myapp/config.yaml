@@ -1,2 +1,7 @@
+package_name: foo
 key_file: "key.json"
 dry_run: true
+openc3_url: http://10.10.10.10/api/ci/googleplay/review/record
+openc3_header:
+  appkey: xxx
+  appname: foo
