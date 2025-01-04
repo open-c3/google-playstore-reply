@@ -4,6 +4,7 @@ import json
 import requests
 import yaml
 import os
+import sys
 
 def load_config():
     with open('/conf/config.yaml', 'r') as f:
@@ -22,8 +23,8 @@ def load_config():
     return config
 
 
-def run_list_py(config):
-    process = subprocess.Popen(['python', 'list.py'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+def run_list_py(config, list_py_path):
+    process = subprocess.Popen(['python', list_py_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = process.communicate()
     if process.returncode != 0:
         print(f'Error: {stderr.decode()}')
@@ -90,6 +91,13 @@ def process_json_line(json_line, config):
         print(f'Error sending data: {response.text}')
 
 if __name__ == '__main__':
+
+    if len(sys.argv) < 2:
+        print("Usage: python task.py <list_py_path>")
+        sys.exit(1)
+
+    list_py_path = sys.argv[1]
+
     config = load_config()
-    run_list_py(config)
+    run_list_py(config, list_py_path)
 

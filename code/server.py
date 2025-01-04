@@ -31,7 +31,7 @@ def reply():
 
 def timed_job(config):
     now = datetime.datetime.now()
-    sync_script = '/code/sync.sh'
+    sync_script = '/code/prod/sync.sh'
     if config.get('debug', False):
         sync_script = '/code/debug/sync.sh'
     print(f'{now} {sync_script} ...')
@@ -41,7 +41,7 @@ def timed_job(config):
 def run_reply_script(json_data, config):
     with open('/tmp/data.json', 'w') as f:
         f.write(json_data)
-    reply_script = '/code/reply.py'
+    reply_script = '/code/prod/reply.py'
     if config.get('debug', False):
         reply_script = '/code/debug/reply.py'
     subprocess.run([reply_script], input=json_data.encode())

@@ -5,7 +5,7 @@ import random
 import string
 
 # 读取demo.json文件
-with open('demo.json', 'r') as f:
+with open('/code/debug/demo.json', 'r') as f:
     data = json.load(f)
 
 # 生成随机的reviewId
