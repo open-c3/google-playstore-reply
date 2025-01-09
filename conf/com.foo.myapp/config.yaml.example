@@ -6,5 +6,6 @@ openc3_header:
   appkey: xxx
   appname: foo
 port: 8000
-socks5: '10.10.10.10:1080'
+proxy: 'socks5://10.10.10.10:1080'
+#proxy: 'http://10.10.10.10:11080'
 debug: true
