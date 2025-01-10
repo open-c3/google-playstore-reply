@@ -46,7 +46,6 @@ if __name__ == "__main__":
         for i, review in enumerate(last_x_reviews, 1):
             data = review.copy()
 
-            print(json.dumps(data, indent=2))
             review_id = data['reviewId']
             authorName = data['authorName']
         
