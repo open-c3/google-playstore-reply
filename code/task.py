@@ -5,6 +5,7 @@ import requests
 import yaml
 import os
 import sys
+import hashlib
 
 def load_config():
     with open('/conf/config.yaml', 'r') as f:
@@ -44,6 +45,19 @@ def process_json_line(json_line, config):
         'callback': f"http://{config['ip']}:{config['port']}"
     })
     
+    # 对数据进行排序和压缩
+    sorted_data = dict(sorted(simplified_data.items()))
+    compressed_str = json.dumps(sorted_data, separators=(',', ':'))
+
+    # 计算 MD5
+    md5_hash = hashlib.md5(compressed_str.encode()).hexdigest()
+
+    # 检查是否已经处理过这个 MD5
+    if os.path.exists(f'/tmp/post.md5.{md5_hash}'):
+        print(f'Skipping post for MD5: {md5_hash} (already processed)')
+        return
+
+
     print(json.dumps(simplified_data, indent=2))
 
     url = config['openc3_url']
@@ -53,6 +67,7 @@ def process_json_line(json_line, config):
     
     if response.status_code == 200:
         print(f'Data sent successfully: {response.text}')
+        open(f'/tmp/post.md5.{md5_hash}', 'w').close()
     else:
         print(f'Error sending data: {response.text}')
 

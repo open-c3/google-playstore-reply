@@ -49,13 +49,17 @@ if __name__ == "__main__":
             review_id = data['reviewId']
             authorName = data['authorName']
         
-            device_name = data['comments'][0]['userComment']['deviceMetadata']['productName']
+            #device_name = data['comments'][0]['userComment']['deviceMetadata']['productName']
+            device_name = data.get('comments', [{}])[0].get('userComment', {}).get('deviceMetadata', {}).get('productName', 'unknown')
+
             comment_time_seconds = data['comments'][0]['userComment']['lastModified']['seconds']
             thumbs_up_count = data['comments'][0]['userComment'].get('thumbsUpCount', 'Unknown')
             thumbs_down_count = data['comments'][0]['userComment'].get('thumbsDownCount', 'Unknown')
             reviewer_language = data['comments'][0]['userComment']['reviewerLanguage']
-            app_version_code = data['comments'][0]['userComment']['appVersionCode']
-            app_version_name = data['comments'][0]['userComment']['appVersionName']
+            #app_version_code = data['comments'][0]['userComment']['appVersionCode']
+            app_version_code = data.get('comments', [{}])[0].get('userComment', {}).get('appVersionCode', 0)
+            #app_version_name = data['comments'][0]['userComment']['appVersionName']
+            app_version_name = data.get('comments', [{}])[0].get('userComment', {}).get('appVersionName', 0)
             android_os_version = data['comments'][0]['userComment']['androidOsVersion']
             star_rating = data['comments'][0]['userComment']['starRating']
             user_comment = data['comments'][0]['userComment']['text']

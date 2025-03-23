@@ -41,6 +41,11 @@ def timed_job(config):
     print(f'{now} {sync_script} ...')
     subprocess.run([sync_script])
 
+def kill_job(config):
+    now = datetime.datetime.now()
+    kill_script = '/code/kill.sh'
+    print(f'{now} {kill_script} ...')
+    subprocess.run([kill_script])
 
 def run_reply_script(json_data, config):
     with open('/tmp/data.json', 'w') as f:
@@ -54,6 +59,7 @@ def run_reply_script(json_data, config):
 scheduler = BackgroundScheduler()
 
 scheduler.add_job(timed_job, 'interval', minutes=5, args=[config])
+scheduler.add_job(kill_job , 'interval', minutes=6, args=[config])
 
 scheduler.start()
 
